@@ -19,11 +19,7 @@ export default function DepartmentStackView({ departments }: DepartmentStackProp
             useFlexGap
             sx={{ flexWrap: 'wrap' }}
         >
-            {departments.map((department) => (
-                <Grid key={department.deptName}>
-                    <DepartmentCardView department={department} />
-                </Grid>
-            ))}
+            {departments.map((department) => (<DepartmentCardView key={department.deptName} department={department} />))}
         </Stack>
     );
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, Suspense } from "react";
 import DepartmentService from "../services/DepartmentService";
-import DepartmentGridView from "../components/department/DepartmentGridView";
+import DepartmentStackView from "../components/department/DepartmentStackView";
 import { DepartmentContext } from "../context/DepartmentContext";
 import { Typography } from "@mui/material";
 
@@ -25,7 +25,7 @@ function DepartmentContent() {
             {departments.length === 0 ? (
                 <div>Loading...</div>
             ) : (
-                <DepartmentGridView departments={departments} />
+                <DepartmentStackView departments={departments} />
             )}
         </div>
     );
