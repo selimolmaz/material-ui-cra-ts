@@ -1,8 +1,9 @@
-import { Button, Card, CardActions, CardContent, Typography } from '@mui/material';
+import { Button, Card, CardActions, CardContent, Radio, Typography } from '@mui/material';
 import * as React from 'react';
 import DepartmentDTO from '../../models/DepartmentDTO';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import EditDepartmentModal from './EditDepartment';
+import { DepartmentContext } from '../../context/DepartmentContext';
 
 interface DepartmentCardViewProps {
     department: DepartmentDTO;
@@ -10,9 +11,13 @@ interface DepartmentCardViewProps {
 
 export default function DepartmentCardView({ department }: DepartmentCardViewProps) {
     const [modalOpen, setModalOpen] = useState(false);
-
     const handleOpenModal = () => setModalOpen(true);
     const handleCloseModal = () => setModalOpen(false);
+    const { setSelectedDepartment } = useContext(DepartmentContext);
+    
+    const setDepartment = (department: DepartmentDTO) => {
+        setSelectedDepartment(department);
+    }
 
     return (
         <Card sx={{ minWidth: 222 }}>
@@ -28,7 +33,10 @@ export default function DepartmentCardView({ department }: DepartmentCardViewPro
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small" onClick={handleOpenModal}>Edit</Button>
+                <Button size="medium" onClick={handleOpenModal}>Edit Department</Button>
+            </CardActions>
+            <CardActions>
+                <Button size="medium" onClick={() => setDepartment(department)}>Show Student</Button>
             </CardActions>
             <EditDepartmentModal
                 department={department}
