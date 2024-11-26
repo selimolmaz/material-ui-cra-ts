@@ -5,12 +5,14 @@ import { DepartmentContext } from "../context/DepartmentContext";
 import { Typography } from "@mui/material";
 
 function DepartmentContent() {
-    const { departments, setDepartments } = useContext(DepartmentContext);
+    const { departments, setDepartments, setSelectedDepartment } = useContext(DepartmentContext);
     const departmentService = new DepartmentService();
 
     useEffect(() => {
         departmentService.getDepartments()
-            .then(data => setDepartments(data))
+            .then(data => {
+                setDepartments(data); 
+                setSelectedDepartment(data[0]);}) // başlangıçta seçili olan departman
             .catch(error => console.error("Error fetching departments:", error));
     }, [setDepartments]);
 
