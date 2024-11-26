@@ -4,14 +4,14 @@ import DepartmentDTO from '../models/DepartmentDTO';
 interface DepartmentContextProps {
     departments: DepartmentDTO[];
     setDepartments: React.Dispatch<React.SetStateAction<DepartmentDTO[]>>;
-    selectedDepartment: string;
-    setSelectedDepartment: React.Dispatch<React.SetStateAction<string>>;
+    selectedDepartment: DepartmentDTO;
+    setSelectedDepartment: React.Dispatch<React.SetStateAction<DepartmentDTO>>;
 }
 
 export const DepartmentContext = createContext<DepartmentContextProps>({
     departments: [],
     setDepartments: () => {},
-    selectedDepartment: 'Math',
+    selectedDepartment: {} as DepartmentDTO,
     setSelectedDepartment: () => {},
 });
 
@@ -21,7 +21,7 @@ interface DepartmentProviderProps {
 
 export const DepartmentProvider: React.FC<DepartmentProviderProps> = ({ children }) => {
     const [departments, setDepartments] = useState<DepartmentDTO[]>([]);
-    const [selectedDepartment, setSelectedDepartment] = useState<string>('Math');
+    const [selectedDepartment, setSelectedDepartment] = useState<DepartmentDTO>({} as DepartmentDTO);
 
     return (
         <DepartmentContext.Provider value={{ departments, setDepartments, selectedDepartment, setSelectedDepartment }}>

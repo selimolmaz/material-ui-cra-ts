@@ -11,7 +11,7 @@ const StudentContent: React.FC = () => {
 
     useEffect(() => {
         const studentService = new StudentService();
-        studentService.getStudentsByDeptName(selectedDepartment).then(data => {
+        studentService.getStudentsByDeptName(selectedDepartment.deptName).then(data => {
             setStudents(data);
         });
     }, [selectedDepartment, setStudents]);
