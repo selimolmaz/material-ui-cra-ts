@@ -5,7 +5,8 @@ import { StudentContext } from "../context/StudentContext";
 import { DepartmentContext } from "../context/DepartmentContext";
 import { Typography } from "@mui/material";
 import StudentTableView from "../components/student/StudentTableView";
-import StudentsGridView from "../components/student/StudentsGridView";
+import StudentsStackView from "../components/student/StudentsStackView";
+
 
 const StudentContent: React.FC = () => {
     const { students, setStudents, selectedStudents } = useContext(StudentContext);
@@ -26,6 +27,12 @@ const StudentContent: React.FC = () => {
                 </Typography>
                 <Typography variant="h5" component="h2" sx={{ mb: 2 }}>
                     <StudentTableView students={students} />
+                </Typography>
+                <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
+                    Selected Students
+                </Typography>
+                <Typography variant="h5" component="h2" sx={{ mb: 2 }}>
+                    <StudentsStackView students={selectedStudents} />
                 </Typography>
             </Suspense>
         </>
