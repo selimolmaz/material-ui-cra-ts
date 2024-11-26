@@ -23,7 +23,7 @@ const StudentContent: React.FC = () => {
         <>
             <Suspense fallback={<div>Loading...</div>}>
                 <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-                    Student Information
+                    Student Information of {selectedDepartment.deptName}
                 </Typography>
                 <Typography variant="h5" component="h2" sx={{ mb: 2 }}>
                     <StudentTableView students={students} />
