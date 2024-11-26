@@ -81,7 +81,7 @@ export default function EditDepartmentModal({ department, open, onClose }: EditD
             fullWidth
             margin="normal"
           />
-          <Button onClick={handleSave} variant="contained" color="primary">
+          <Button onClick={handleSave} color="primary">
             Save
           </Button>
         </Paper>
