@@ -1,19 +1,8 @@
 import { Button, Card, CardActions, CardContent, Typography } from '@mui/material';
 import * as React from 'react';
-import DepartmentDTO from '../models/DepartmentDTO';
+import DepartmentDTO from '../../models/DepartmentDTO';
 import { useState } from 'react';
 import EditDepartmentModal from './EditDepartment';
-
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    boxShadow: 24,
-    p: 4,
-};
 
 interface DepartmentCardViewProps {
     department: DepartmentDTO;

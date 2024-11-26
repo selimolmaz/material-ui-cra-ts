@@ -30,6 +30,9 @@ const MainContent = () => {
                     <Box sx={{ my: 4 }}>
                         <DepartmentContent />
                     </Box>
+                    <Box sx={{ my: 4 }}>
+                        <StudentContent />
+                    </Box>
                 </Container>
             </StudentProvider>
         </DepartmentProvider>

@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, Suspense } from "react";
 import DepartmentService from "../services/DepartmentService";
-import DepartmentGridView from "../components/DepartmentGridView";
+import DepartmentGridView from "../components/department/DepartmentGridView";
 import { DepartmentContext } from "../context/DepartmentContext";
 import { Typography } from "@mui/material";
 
