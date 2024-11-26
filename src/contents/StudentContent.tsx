@@ -4,9 +4,11 @@ import StudentService from "../services/StudentService";
 import { StudentContext } from "../context/StudentContext";
 import { DepartmentContext } from "../context/DepartmentContext";
 import { Typography } from "@mui/material";
+import StudentTableView from "../components/student/StudentTableView";
+import StudentsGridView from "../components/student/StudentsGridView";
 
 const StudentContent: React.FC = () => {
-    const { students, setStudents } = useContext(StudentContext);
+    const { students, setStudents, selectedStudents } = useContext(StudentContext);
     const { selectedDepartment } = useContext(DepartmentContext);
 
     useEffect(() => {
@@ -17,14 +19,16 @@ const StudentContent: React.FC = () => {
     }, [selectedDepartment, setStudents]);
 
     return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-                Student Information
-            </Typography>
-            <div>{students.map((student) => (
-                <div key={student.id}>{student.name}</div>
-            ))}</div>
-        </Suspense>
+        <>
+            <Suspense fallback={<div>Loading...</div>}>
+                <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
+                    Student Information
+                </Typography>
+                <Typography variant="h5" component="h2" sx={{ mb: 2 }}>
+                    <StudentTableView students={students} />
+                </Typography>
+            </Suspense>
+        </>
     );
 }
 export default StudentContent;
