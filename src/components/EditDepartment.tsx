@@ -1,15 +1,14 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
 import DepartmentDTO from '../models/DepartmentDTO';
 import DepartmentService from '../services/DepartmentService';
 import { DepartmentContext } from '../context/DepartmentContext';
 import { Paper } from '@mui/material';
+import SnackbarMessage from './SnackbarMessage';
+import { useContext, useState } from 'react';
 
 const style = {
   position: 'absolute',
@@ -23,23 +22,21 @@ const style = {
 
 interface EditDepartmentProps {
     department: DepartmentDTO;
+    open: boolean;
+    onClose: () => void;
 }
 
-export default function EditDepartmentModal({ department }: EditDepartmentProps) {
-  const { departments, setDepartments } = React.useContext(DepartmentContext);
-  const [open, setOpen] = React.useState(false);
-  const [budget, setBudget] = React.useState(department.budget);
-  const [building, setBuilding] = React.useState(department.building);
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-  const [snackbarMessage, setSnackbarMessage] = React.useState('');
-  const [snackbarSeverity, setSnackbarSeverity] = React.useState<'success' | 'error'>('success');
+export default function EditDepartmentModal({ department, open, onClose }: EditDepartmentProps) {
+  const { departments, setDepartments } = useContext(DepartmentContext);
+  const [budget, setBudget] = useState(department.budget);
+  const [building, setBuilding] = useState(department.building);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error'>('success');
 
-  const handleOpen = () => {
-    setBudget(department.budget);
-    setBuilding(department.building);
-    setOpen(true);
+  const handleClose = () => {
+    onClose();
   };
-  const handleClose = () => setOpen(false);
   const handleSnackbarClose = () => setSnackbarOpen(false);
 
   const handleSave = async () => {
@@ -60,7 +57,6 @@ export default function EditDepartmentModal({ department }: EditDepartmentProps)
 
   return (
     <div>
-      <Button onClick={handleOpen}>Edit</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -90,11 +86,12 @@ export default function EditDepartmentModal({ department }: EditDepartmentProps)
           </Button>
         </Paper>
       </Modal>
-      <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
-        <Alert onClose={handleSnackbarClose} severity={snackbarSeverity} sx={{ width: '100%' }}>
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
+      <SnackbarMessage
+        open={snackbarOpen}
+        message={snackbarMessage}
+        severity={snackbarSeverity}
+        onClose={handleSnackbarClose}
+      />
     </div>
   );
 }
