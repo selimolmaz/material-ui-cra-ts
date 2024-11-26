@@ -21,9 +21,13 @@ const MainContent = () => {
                     <Box sx={{ my: 4 }}>
                         <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
                             University Database Example
+                        </Typography>
+                        <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
                             Database System Concepts
                             7th Edition
                         </Typography>
+                    </Box>
+                    <Box sx={{ my: 4 }}>
                         <DepartmentContent />
                     </Box>
                 </Container>
