@@ -3,24 +3,28 @@ import Grid from '@mui/material/Grid2';
 import Box from '@mui/material/Box';
 import DepartmentDTO from '../../models/DepartmentDTO';
 import DepartmentCardView from './DepartmentCardView';
+import { Stack } from '@mui/material';
 
 
 
-interface DepartmentTreeProps {
+interface DepartmentStackProps {
     departments: DepartmentDTO[];
 }
 
-export default function DepartmentGridView({ departments }: DepartmentTreeProps) {
+export default function DepartmentStackView({ departments }: DepartmentStackProps) {
     return (
-        <Box sx={{ width: '100%', margin: 2}}>
-            <Grid container rowSpacing={1} columnSpacing={{ xs: 20, sm: 2, md: 3 }}>
-                {departments.map((department) => (
-                    <Grid key={department.deptName}>
-                        <DepartmentCardView department={department} />
-                    </Grid>
-                ))}
-            </Grid>
-        </Box>
+        <Stack
+            spacing={{ xs: 1, sm: 2 }}
+            direction="row"
+            useFlexGap
+            sx={{ flexWrap: 'wrap' }}
+        >
+            {departments.map((department) => (
+                <Grid key={department.deptName}>
+                    <DepartmentCardView department={department} />
+                </Grid>
+            ))}
+        </Stack>
     );
 }
 
