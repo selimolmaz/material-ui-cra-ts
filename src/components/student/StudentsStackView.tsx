@@ -20,7 +20,7 @@ export default function StudentsStackView({ students }: StudentsStackViewProps) 
                 useFlexGap
                 sx={{ flexWrap: 'wrap' }}
             >
-                {students.map((student) => (<StudentCardView student={student}/>))}
+                {students.map((student) => (<StudentCardView key={`student-detail-${student.id}`} student={student}/>))}
             </Stack>
         </Box>
     );
