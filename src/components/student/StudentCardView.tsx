@@ -60,7 +60,7 @@ const StudentCardView: React.FC<StudentCardViewProps> = ({ student }) => {
           {open ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <ListItem>
-          <Collapse in={open} timeout={500} unmountOnExit>
+          <Collapse in={open} timeout='auto' unmountOnExit>
             <Stack spacing={2}
               direction="row"
               useFlexGap
