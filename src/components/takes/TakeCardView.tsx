@@ -11,7 +11,7 @@ const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: '#fff',
     ...theme.typography.body2,
     padding: theme.spacing(1),
-    textAlign: 'center',
+    textAlign: 'left',
     color: theme.palette.text.secondary,
     flexGrow: 1,
     ...theme.applyStyles('dark', {
@@ -24,22 +24,22 @@ export default function TakesCardView({ take }: TakeCardViewProps) {
     return (
         <Item>
             <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
-                {take.section.course.title}
+                Course: {take.section.course.title}
+            </Typography>
+            <Typography variant="body2">
+                Grade:{take.grade}
             </Typography>
             <Typography variant="h5" component="div">
-                {take.courseId}
+                Course Id:{take.courseId}
             </Typography>
             <Typography variant="body2">
-                {take.secId}
+                Section Id:{take.secId}
             </Typography>
             <Typography variant="body2">
-                {take.semester}
+                Semester: {take.semester}
             </Typography>
             <Typography variant="body2">
-                {take.year}
-            </Typography>
-            <Typography variant="body2">
-                {take.grade}
+                Year: {take.year}
             </Typography>
         </Item>
     );
