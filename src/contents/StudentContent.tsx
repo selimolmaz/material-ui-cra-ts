@@ -3,7 +3,7 @@ import React, { Suspense, useContext, useEffect } from "react";
 import StudentService from "../services/StudentService";
 import { StudentContext } from "../context/StudentContext";
 import { DepartmentContext } from "../context/DepartmentContext";
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import StudentTableView from "../components/student/StudentTableView";
 import StudentsStackView from "../components/student/StudentsStackView";
 
@@ -32,7 +32,8 @@ const StudentContent: React.FC = () => {
                     Selected Students
                 </Typography>
                 <Typography variant="h5" component="h2" sx={{ mb: 2 }}>
-                    <StudentsStackView students={selectedStudents} />
+                    { selectedStudents && selectedStudents.length > 0 ? <StudentsStackView students={selectedStudents} /> : 
+                    <Typography style={{height:'100%'}}>If you wanna see student takes<br/> please select student on list</Typography> }
                 </Typography>
             </Suspense>
         </>
