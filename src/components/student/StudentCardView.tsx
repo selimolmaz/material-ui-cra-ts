@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import StudentDTO from '../../models/StudentDTO';
-import { Box, Collapse, Container, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Paper, Stack, styled } from '@mui/material';
-import StarBorder from '@mui/icons-material/StarBorder';
+import { Box, Collapse, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Paper, Stack, styled } from '@mui/material';
 import InboxIcon from '@mui/icons-material/Inbox';
-import { ExpandLess, ExpandMore, Send as SendIcon, Drafts as DraftsIcon } from '@mui/icons-material';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import TakesService from '../../services/TakesService';
 import TakesDTO from '../../models/TakesDTO';
 import TakesCardView from '../takes/TakeCardView';
-import Grid from '@mui/material/Grid2';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#fff',
@@ -61,17 +59,19 @@ const StudentCardView: React.FC<StudentCardViewProps> = ({ student }) => {
           <ListItemText primary="Takes" />
           {open ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
-      </List>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <Stack spacing={2}  
+        <ListItem>
+          <Collapse in={open} timeout={500} unmountOnExit>
+            <Stack spacing={2}
               direction="row"
               useFlexGap
               sx={{ flexWrap: 'wrap' }}>
-          {takes.map((take) => (
-            <TakesCardView key={`${take.courseId}+${take.section}`} take={take}/>
-          ))}
-        </Stack>
-      </Collapse>
+              {takes.map((take) => (
+                <TakesCardView key={`student-takes-${take.studentId}+${take.section.courseId}-${take.section.secId}-${take.section.semester}-${take.section.year}-${take.section.building}-${take.section.roomNumber}-${take.section.timeSlotId}`} take={take} />
+              ))}
+            </Stack>
+          </Collapse>
+        </ListItem>
+      </List>
     </Item>
   );
 };
