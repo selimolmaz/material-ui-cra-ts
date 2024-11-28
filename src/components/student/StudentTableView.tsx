@@ -3,9 +3,9 @@ import { DataGrid, GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import { StudentContext } from '../../context/StudentContext';
 import StudentDTO from '../../models/StudentDTO';
-import { Button } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 import EditStudentModal from './EditStudentModal';
-
+import BorderColorIcon from '@mui/icons-material/BorderColor';
 
 interface StudentTableViewProps {
     students: StudentDTO[];
@@ -15,7 +15,7 @@ export default function StudentTableView({ students }: StudentTableViewProps) {
     const { setSelectedStudents } = useContext(StudentContext);
     const [editStudent, setEditStudent] = useState<StudentDTO | null>(null);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    
+
     const rows = students.map((student) => {
         return {
             id: student.id,
@@ -35,16 +35,10 @@ export default function StudentTableView({ students }: StudentTableViewProps) {
             headerName: 'Action',
             width: 150,
             renderCell: (params) => (
-                <Button
-                    variant="text"
-                    color="primary"
-                    onClick={(event) => {
-                        event.stopPropagation(); // Satır seçimini engelle
-                        handleEdit(params.row.id);
-                    }}
-                >
-                    ✍️
-                </Button>
+                <IconButton onClick={(event) => {
+                    event.stopPropagation(); // Satır seçimini engelle
+                    handleEdit(params.row.id);
+                }}><BorderColorIcon /></IconButton>
             ),
         },
     ];
