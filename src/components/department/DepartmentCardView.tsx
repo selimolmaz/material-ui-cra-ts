@@ -1,9 +1,9 @@
-import { Button, Card, CardActions, CardContent, Paper, Radio, styled, Typography } from '@mui/material';
+import { IconButton, Paper, styled, Typography } from '@mui/material';
 import * as React from 'react';
 import DepartmentDTO from '../../models/DepartmentDTO';
 import { useContext, useState } from 'react';
-import EditDepartmentModal from './EditDepartment';
 import { DepartmentContext } from '../../context/DepartmentContext';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 interface DepartmentCardViewProps {
     department: DepartmentDTO;
@@ -13,7 +13,10 @@ const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: '#fff',
     ...theme.typography.body2,
     padding: theme.spacing(1),
+    margin: theme.spacing(3),
     textAlign: 'center',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
     color: theme.palette.text.secondary,
     flexGrow: 1,
     ...theme.applyStyles('dark', {
@@ -23,8 +26,6 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function DepartmentCardView({ department }: DepartmentCardViewProps) {
     const [modalOpen, setModalOpen] = useState(false);
-    const handleOpenModal = () => setModalOpen(true);
-    const handleCloseModal = () => setModalOpen(false);
     const { setSelectedDepartment } = useContext(DepartmentContext);
 
     const setDepartment = (department: DepartmentDTO) => {
@@ -33,26 +34,18 @@ export default function DepartmentCardView({ department }: DepartmentCardViewPro
 
     return (
         <Item>
-            <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
+            <Typography variant="h5" component="div" >
                 {department.deptName}
             </Typography>
-            <Typography variant="h5" component="div">
+            <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
                 {department.building}
             </Typography>
             <Typography variant="body2">
                 {department.budget}
             </Typography>
             <Typography variant="body2">
-                <Button size="medium" onClick={handleOpenModal}>✍️</Button>
+                <IconButton onClick={() => setDepartment(department)}><AddCircleIcon/></IconButton>
             </Typography>
-            <Typography variant="body2">
-                <Button size="medium" onClick={() => setDepartment(department)}>Show Student</Button>
-            </Typography>
-            <EditDepartmentModal
-                department={department}
-                open={modalOpen}
-                onClose={handleCloseModal}
-            />
         </Item>
     );
 }
