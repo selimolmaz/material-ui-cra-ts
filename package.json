@@ -16,6 +16,7 @@
     "react": "latest",
     "react-dom": "latest",
     "react-scripts": "latest",
+    "swiper": "^11.1.15",
     "typescript": "latest"
   },
   "scripts": {
