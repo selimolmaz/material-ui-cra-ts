@@ -7,7 +7,7 @@ import DepartmentDTO from '../../models/DepartmentDTO';
 import DepartmentService from '../../services/DepartmentService';
 import { DepartmentContext } from '../../context/DepartmentContext';
 import { Paper } from '@mui/material';
-import SnackbarMessage from './SnackbarMessage';
+import SnackbarMessage from '../SnackbarMessage';
 import { useContext, useState } from 'react';
 
 const style = {
