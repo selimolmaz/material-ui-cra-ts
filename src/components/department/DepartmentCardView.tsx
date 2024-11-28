@@ -43,7 +43,7 @@ export default function DepartmentCardView({ department }: DepartmentCardViewPro
                 {department.budget}
             </Typography>
             <Typography variant="body2">
-                <Button size="medium" onClick={handleOpenModal}>Edit Department</Button>
+                <Button size="medium" onClick={handleOpenModal}>✍️</Button>
             </Typography>
             <Typography variant="body2">
                 <Button size="medium" onClick={() => setDepartment(department)}>Show Student</Button>
