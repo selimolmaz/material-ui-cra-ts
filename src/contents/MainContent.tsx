@@ -6,6 +6,7 @@ import DepartmentContent from './DepartmentContent';
 import StudentContent from './StudentContent';
 import { DepartmentProvider } from '../context/DepartmentContext';
 import { StudentProvider } from '../context/StudentContext';
+import CourseContent from './CourseContent';
 
 const MainContent = () => {
     const [value, setValue] = React.useState('1');
@@ -29,6 +30,9 @@ const MainContent = () => {
                     </Box>
                     <Box sx={{ my: 4 }}>
                         <DepartmentContent />
+                    </Box>
+                    <Box sx={{ my: 4 }}>
+                        <CourseContent />
                     </Box>
                     <Box sx={{ my: 4 }}>
                         <StudentContent />
