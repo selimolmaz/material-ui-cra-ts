@@ -23,7 +23,7 @@ function TakesChartView({ takes }: TakesChartViewProps) {
       series={[
         {
           data: counts,
-          color: '#007aff',
+          color: '#1976d2',
         },
       ]}
       xAxis={[{ data: grades, scaleType: 'band' }]}
