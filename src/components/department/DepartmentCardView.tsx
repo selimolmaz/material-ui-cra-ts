@@ -25,12 +25,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function DepartmentCardView({ department }: DepartmentCardViewProps) {
-    const [modalOpen, setModalOpen] = useState(false);
     const { setSelectedDepartment } = useContext(DepartmentContext);
-
-    const setDepartment = (department: DepartmentDTO) => {
-        setSelectedDepartment(department);
-    }
 
     return (
         <Item>
@@ -44,7 +39,7 @@ export default function DepartmentCardView({ department }: DepartmentCardViewPro
                 {department.budget}
             </Typography>
             <Typography variant="body2">
-                <IconButton onClick={() => setDepartment(department)}><AddCircleIcon/></IconButton>
+                <IconButton onClick={() => setSelectedDepartment(department)}><AddCircleIcon/></IconButton>
             </Typography>
         </Item>
     );

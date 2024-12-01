@@ -33,7 +33,7 @@ export default function TeacheCardView({ teache }: TeachesCardViewProps) {
         takesService.getTakesBySectionId(teache.courseId, teache.secId, teache.semester, teache.year).then(data => {
             setTakes(data);
         });
-    }, [setTakes]);
+    }, [teache.courseId, teache.secId, teache.semester, teache.year]);
 
     return (
         <Item>

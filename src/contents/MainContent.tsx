@@ -9,12 +9,6 @@ import { StudentProvider } from '../context/StudentContext';
 import CourseContent from './CourseContent';
 
 const MainContent = () => {
-    const [value, setValue] = React.useState('1');
-
-    const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-        setValue(newValue);
-    };
-
     return (
         <DepartmentProvider>
             <StudentProvider>

@@ -1,6 +1,6 @@
 import { Box, Paper, Stack, styled, Typography } from '@mui/material';
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
 import CourseDTO from '../../models/CourseDTO';
 import PrereqDTO from '../../models/PrereqDTO';
@@ -29,9 +29,7 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function CourseCardView({ course }: CourseCardViewProps) {
     const [teaches, setTeaches] = useState([] as TeachesDTO[]);
     const [prereqs, setPrereqs] = useState([] as PrereqDTO[]);
-
-
-
+    
     useEffect(() => {
         const prereqService = new PrereqService();
         const teachesService = new TeachesService();
@@ -43,9 +41,11 @@ export default function CourseCardView({ course }: CourseCardViewProps) {
         prereqService.getPrereqsByCourseId(course.courseId).then(data => {
             setPrereqs(data);
         });
-    }, [setPrereqs, setTeaches]);
+    }, [course.courseId]);
+
     return (
-        <Item>
+        <Suspense fallback={<div>Loading...</div>}>
+            <Item>
             <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
                 Course: {course.title}
             </Typography>
@@ -73,5 +73,7 @@ export default function CourseCardView({ course }: CourseCardViewProps) {
             </Typography>
             )}
         </Item>
+        </Suspense>
+        
     );
 }

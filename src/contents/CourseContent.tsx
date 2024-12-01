@@ -5,6 +5,7 @@ import { Box, Typography } from "@mui/material";
 import CourseService from "../services/CourseService";
 import CourseDTO from "../models/CourseDTO";
 import CourseStackView from "../components/course/CourseStackView";
+import DepartmentDTO from "../models/DepartmentDTO";
 
 
 const CourseContent: React.FC = () => {
@@ -16,7 +17,7 @@ const CourseContent: React.FC = () => {
         courseService.getCourseByDeptName(selectedDepartment.deptName).then(data => {
             setCourses(data);
         });
-    }, [selectedDepartment, setCourses]);
+    }, [selectedDepartment.deptName]);
 
     return (
         <>
