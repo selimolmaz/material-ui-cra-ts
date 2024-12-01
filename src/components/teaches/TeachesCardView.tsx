@@ -1,8 +1,11 @@
 import { Paper, styled, Typography } from '@mui/material';
 import * as React from 'react';
 
-import PrereqDTO from '../../models/PrereqDTO';
 import TeachesDTO from '../../models/TeachesDTO';
+import TakesDTO from '../../models/TakesDTO';
+import { useState } from 'react';
+import TakesService from '../../services/TakesService';
+import TakesChartView from '../takes/TakesChartView';
 
 
 interface TeachesCardViewProps {
@@ -22,6 +25,15 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function TeacheCardView({ teache }: TeachesCardViewProps) {
+    const [takes, setTakes] = useState([] as TakesDTO[]);
+
+    React.useEffect(() => {
+        const takesService = new TakesService();
+
+        takesService.getTakesBySectionId(teache.courseId, teache.secId, teache.semester, teache.year).then(data => {
+            setTakes(data);
+        });
+    }, [setTakes]);
 
     return (
         <Item>
@@ -34,6 +46,7 @@ export default function TeacheCardView({ teache }: TeachesCardViewProps) {
             <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
                 Section: {teache.section.courseId}-{teache.section.secId}-{teache.section.semester}-{teache.section.year}-{teache.section.building}-{teache.section.roomNumber}
             </Typography>
+            <TakesChartView takes={takes} /> 
         </Item>
     );
 }

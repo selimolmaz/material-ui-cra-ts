@@ -26,7 +26,7 @@ export default function PrereqStackView({ prereqs }: PrereqStackViewProps) {
                 useFlexGap
                 sx={{ flexWrap: 'wrap' }}
             >
-                {prereqs.map((prereq) => (<PrereqCardView key={`prereq-detail-${prereq.prereqId}`} prereq={prereq}/>))}
+                {prereqs.map((prereq) => (<PrereqCardView key={`prereq-detail-${prereq.prereqId}-${prereq.courseId}`} prereq={prereq}/>))}
             </Stack>
         </Box>
     );

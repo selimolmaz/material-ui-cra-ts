@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Grid from '@mui/material/Grid2';
 import Box from '@mui/material/Box';
 import StudentDTO from '../../models/StudentDTO';
 import { Paper, Stack, styled } from '@mui/material';

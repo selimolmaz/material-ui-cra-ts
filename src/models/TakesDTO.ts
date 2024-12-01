@@ -1,4 +1,5 @@
 import SectionDTO from "./SectionDTO";
+import StudentDTO from "./StudentDTO";
 
 interface TakesDTO {
     studentId: string;
@@ -8,7 +9,7 @@ interface TakesDTO {
     year: number;
     grade: string;
     section: SectionDTO;
-    student: SectionDTO;
+    student: StudentDTO;
 }
 
 export default TakesDTO;

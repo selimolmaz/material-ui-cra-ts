@@ -56,16 +56,15 @@ export default function CourseCardView({ course }: CourseCardViewProps) {
                 Course Id: {course.courseId}
             </Typography>
             {prereqs.length > 0 &&
-                <Typography variant="body2" margin={1}>
+                <Typography component="div" margin={1}>
                     <PrereqStackView prereqs={prereqs} />
                 </Typography>
             }
             {teaches.length > 0 &&
-                <Typography variant="body2" margin={1}>
+                <Typography component="div" margin={1}>
                     <TeachesStackView teaches={teaches} />
                 </Typography>
             }
-
         </Item>
     );
 }
