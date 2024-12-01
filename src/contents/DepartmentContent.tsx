@@ -16,7 +16,6 @@ function DepartmentContent() {
     useEffect(() => {
         if (departments && departments.length > 0) {
           setSelectedDepartment(departments[0]);
-          console.log("Selected department:", departments[0]);
         }
       }, [departments]);
 
