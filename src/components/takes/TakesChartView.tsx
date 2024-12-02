@@ -29,6 +29,7 @@ function TakesChartView({ takes }: TakesChartViewProps) {
       xAxis={[{ data: grades, scaleType: 'band' }]}
       width={400}
       height={200}
+      sx={{ minHeight: '200px', minWidth: '400px' }}
     />
   );
 }

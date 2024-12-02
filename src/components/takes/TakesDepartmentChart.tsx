@@ -34,6 +34,7 @@ function TakesDepartmentChartView({ takes }: TakesDepartmentChartViewProps) {
             {...pieParams}
             width={400}
             height={200}
+            sx={{ minHeight: '200px', minWidth: '400px' }}
         />
     );
 }
