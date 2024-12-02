@@ -15,9 +15,9 @@ function DepartmentContent() {
 
     useEffect(() => {
         if (departments && departments.length > 0) {
-          setSelectedDepartment(departments[0]);
+            setSelectedDepartment(departments[0]);
         }
-      }, [departments]);
+    }, [departments]);
 
     useEffect(() => {
         departmentService.getDepartments()
@@ -28,42 +28,38 @@ function DepartmentContent() {
     }, [setDepartments]);
 
     return (
-        <Box>
-            <Typography variant="h5" component="h1" sx={{ mb: 2 }}>
-                Departments
-            </Typography>
-            <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-                <Suspense fallback={<div>Loading...</div>}>
-                    <Swiper
-                        spaceBetween={30}
-                        style={{ padding: '20px' }}
-                        pagination={{
-                            clickable: true,
-                        }}
-                        breakpoints={{
-                            200: {
-                                slidesPerView: 1,
-                                spaceBetween: 20,
-                            },
-                            768: {
-                                slidesPerView: 2,
-                                spaceBetween: 30,
-                            },
-                            1024: {
-                                slidesPerView: 3,
-                                spaceBetween: 30,
-                            },
-                        }}
-                        modules={[Pagination]}
-                    >
-                        {departments.map((department, index) => (
-                            <SwiperSlide key={index}>
-                                <DepartmentCardView key={department.deptName} department={department} />
-                            </SwiperSlide>))}
-                    </Swiper>
-                </Suspense>
-            </Typography>
-        </Box>
+        <Suspense fallback={<div>Loading...</div>}>
+                <Typography variant="h4" component="h2" sx={{ mb: 2 }}>
+                    Departments
+                </Typography>
+                <Swiper
+                    spaceBetween={30}
+                    style={{ padding: '20px' }}
+                    pagination={{
+                        clickable: true,
+                    }}
+                    breakpoints={{
+                        200: {
+                            slidesPerView: 1,
+                            spaceBetween: 20,
+                        },
+                        768: {
+                            slidesPerView: 2,
+                            spaceBetween: 30,
+                        },
+                        1024: {
+                            slidesPerView: 3,
+                            spaceBetween: 30,
+                        },
+                    }}
+                    modules={[Pagination]}
+                >
+                    {departments.map((department, index) => (
+                        <SwiperSlide key={index}>
+                            <DepartmentCardView key={department.deptName} department={department} />
+                        </SwiperSlide>))}
+                </Swiper>
+            </Suspense>
     );
 }
 export default DepartmentContent;

@@ -13,9 +13,6 @@ interface TeachesStackViewProps {
 export default function TeachesStackView({ teaches }: TeachesStackViewProps) {
     return (
         <Box sx={{ width: '100%'}}>
-            <Typography variant="h5"  sx={{ mb: 2 }}>
-                Teaches:
-            </Typography>
             <Stack
                 spacing={{ xs: 1, sm: 2 }}
                 direction="row"

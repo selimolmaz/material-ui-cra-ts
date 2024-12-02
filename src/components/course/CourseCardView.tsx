@@ -18,14 +18,16 @@ const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: '#fff',
     ...theme.typography.body2,
     padding: theme.spacing(1),
+    margin: theme.spacing(3),
     textAlign: 'left',
+    flexWrap: 'wrap',
+    minHeight: 450,
     color: theme.palette.text.secondary,
     flexGrow: 1,
     ...theme.applyStyles('dark', {
         backgroundColor: '#1A2027',
     }),
 }));
-
 export default function CourseCardView({ course }: CourseCardViewProps) {
     const [teaches, setTeaches] = useState([] as TeachesDTO[]);
     const [prereqs, setPrereqs] = useState([] as PrereqDTO[]);
@@ -56,18 +58,14 @@ export default function CourseCardView({ course }: CourseCardViewProps) {
                 Course Id: {course.courseId}
             </Typography>
             {prereqs.length > 0 ? (
-                <Typography component="div" margin={1}>
-                    <PrereqStackView prereqs={prereqs} />
-                </Typography>
+                <PrereqStackView prereqs={prereqs} />
             ) : (
                 <Typography margin={1}>
                     No prerequisites available.
                 </Typography>
             )}
             {teaches.length > 0 ? (
-                <Typography component="div" margin={1}>
-                    <TeachesStackView teaches={teaches} />
-                </Typography>
+                <TeachesStackView teaches={teaches} />
             ) : (<Typography margin={1}>
                 No teaches available.
             </Typography>

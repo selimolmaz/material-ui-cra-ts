@@ -24,7 +24,6 @@ export default function PrereqStackView({ prereqs }: PrereqStackViewProps) {
                 spacing={{ xs: 1, sm: 2 }}
                 direction="row"
                 useFlexGap
-                sx={{ flexWrap: 'wrap' }}
             >
                 {prereqs.map((prereq) => (<PrereqCardView key={`prereq-detail-${prereq.prereqId}-${prereq.courseId}`} prereq={prereq}/>))}
             </Stack>
