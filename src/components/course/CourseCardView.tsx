@@ -1,4 +1,4 @@
-import { Box, Paper, Stack, styled, Typography } from '@mui/material';
+import { Paper, styled, Typography } from '@mui/material';
 import * as React from 'react';
 import { Suspense, useEffect, useState } from 'react';
 

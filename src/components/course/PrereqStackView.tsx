@@ -1,14 +1,8 @@
 import * as React from 'react';
-import Grid from '@mui/material/Grid2';
 import Box from '@mui/material/Box';
-import StudentDTO from '../../models/StudentDTO';
-import { Paper, Stack, styled, Typography } from '@mui/material';
-import CourseDTO from '../../models/CourseDTO';
-import CourseCardView from './CourseCardView';
+import { Stack, Typography } from '@mui/material';
 import PrereqDTO from '../../models/PrereqDTO';
 import PrereqCardView from './PrereqCardView';
-
-
 
 interface PrereqStackViewProps {
     prereqs: PrereqDTO[];
@@ -24,6 +18,7 @@ export default function PrereqStackView({ prereqs }: PrereqStackViewProps) {
                 spacing={{ xs: 1, sm: 2 }}
                 direction="row"
                 useFlexGap
+                sx={{ flexWrap: 'wrap' }}
             >
                 {prereqs.map((prereq) => (<PrereqCardView key={`prereq-detail-${prereq.prereqId}-${prereq.courseId}`} prereq={prereq}/>))}
             </Stack>
