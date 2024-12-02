@@ -15,7 +15,7 @@ const MainContent = () => {
             <SectionProvider>
                 <StudentProvider>
                     <Container>
-                        <Box sx={{ my: 4 }}>
+                        <Box sx={{ my: 4, minHeight: '200px' }}>
                             <Typography variant="h5" component="h1" sx={{ mb: 2 }}>
                                 University Database Example
                             </Typography>
@@ -24,14 +24,15 @@ const MainContent = () => {
                                 7th Edition
                             </Typography>
                         </Box>
-                        <Box sx={{ my: 4 }}>
+                        <Box sx={{ my: 4, minHeight: '200px' }}>
                             <DepartmentContent />
                         </Box>
-                        <Box sx={{ my: 4 }}>
+                        <Box sx={{ my: 4, minHeight: '200px' }}>
                             <CourseContent />
                         </Box>
-
-
+                        <Box sx={{ my: 4, minHeight: '200px' }}>
+                            <SectionContent />
+                        </Box>
                     </Container>
                 </StudentProvider>
             </SectionProvider>
