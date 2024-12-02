@@ -15,6 +15,7 @@ const columns: GridColDef[] = [
   { field: 'grade', headerName: 'Grade', width: 100 },
   { field: 'year', headerName: 'Year', width: 100 },
   { field: 'deptName', headerName: 'Department', width: 200 },
+  { field: 'courseName', headerName: 'Course Name', width: 150 },
 ];
 
 export default function TakesTableView({ takes }: TakesTableViewProps) {
@@ -25,6 +26,7 @@ export default function TakesTableView({ takes }: TakesTableViewProps) {
     grade: take.grade,
     year: take.year,
     deptName: take.student.deptName,
+    courseName: take.section.course.title,
   }));
 
   return (
@@ -34,7 +36,6 @@ export default function TakesTableView({ takes }: TakesTableViewProps) {
         columns={columns}
         initialState={{ pagination: { paginationModel } }}
         pageSizeOptions={[5, 10, 25]}
-        checkboxSelection
         sx={{ border: 0 }}
       />
     </Paper>
