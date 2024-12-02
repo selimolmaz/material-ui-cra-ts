@@ -1,16 +1,13 @@
 import { IconButton, Paper, styled, Typography } from '@mui/material';
 import * as React from 'react';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { StudentContext } from '../../context/StudentContext';
 
 import TeachesDTO from '../../models/TeachesDTO';
 import TakesDTO from '../../models/TakesDTO';
-import { useContext, useEffect, useState } from 'react';
+import { Suspense, useContext, useEffect, useState } from 'react';
 import TakesService from '../../services/TakesService';
-import TakesChartView from '../takes/TakesChartView';
 import { SectionContext } from '../../context/SectionContext';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { StudentContext } from '../../context/StudentContext';
-import TakesDepartmentChartView from '../takes/TakesDepartmentChart';
-
 
 interface TeachesCardViewProps {
     teache: TeachesDTO;
@@ -30,37 +27,30 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function TeacheCardView({ teache }: TeachesCardViewProps) {
-    const [takes, setTakes] = useState([] as TakesDTO[]);
     const { setSection, setWhoTakes } = useContext(SectionContext);
-    const { students, setStudents } = useContext(StudentContext);
-    
-    useEffect(() => {
+
+    async function handleClick() {
         const takesService = new TakesService();
-
         takesService.getTakesBySectionId(teache.courseId, teache.secId, teache.semester, teache.year).then(data => {
-            setTakes(data);
-        });
-
-    }, [teache.courseId, teache.secId, teache.semester, teache.year]);
-
-    function handleClick() {
+            setWhoTakes(data);
+        }).catch(err => { console.log(err) });
         setSection(teache.section);
-        setStudents(takes.map((take) => take.student));
-        setWhoTakes(takes);
     }
 
     return (
-        <Item>
-            <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
-                Instructor: {teache.instructor.name}
-            </Typography>
-            <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
-                Instructor's department: {teache.instructor.deptName}
-            </Typography>
-            <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
-                Section: {teache.section.courseId}-{teache.section.secId}-{teache.section.semester}-{teache.section.year}-{teache.section.building}-{teache.section.roomNumber}
-            </Typography>
-            <IconButton onClick={() => handleClick()}><AddCircleIcon /></IconButton>
-        </Item>
+        <Suspense fallback={<div>Loading...</div>}>
+            <Item>
+                <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
+                    Instructor: {teache.instructor.name}
+                </Typography>
+                <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
+                    Instructor's department: {teache.instructor.deptName}
+                </Typography>
+                <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
+                    Section: {teache.section.courseId}-{teache.section.secId}-{teache.section.semester}-{teache.section.year}-{teache.section.building}-{teache.section.roomNumber}
+                </Typography>
+                <IconButton onClick={() => handleClick()}><AddCircleIcon /></IconButton>
+            </Item>
+        </Suspense>
     );
 }
