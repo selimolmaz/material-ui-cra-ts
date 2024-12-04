@@ -26,9 +26,12 @@ function TakesDepartmentChartView({ takes }: TakesDepartmentChartViewProps) {
 
     return (
         <PieChart
+            colors={['#1976d2', '#2196f3', '#64b5f6', '#bbdefb', '#e3f2fd']}
             series={[
                 {
                     data: data,
+                    cornerRadius: 10,
+                    innerRadius: 30,
                 },
             ]}
             {...pieParams}
