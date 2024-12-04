@@ -18,8 +18,9 @@ const columns: GridColDef[] = [
   { field: 'courseName', headerName: 'Course Name', width: 150 },
 ];
 
-export default function TakesTableView({ takes }: TakesTableViewProps) {
-  const rows = takes.map((take, index) => ({
+const TakesTableView: React.FC<TakesTableViewProps> = React.memo(({ takes }) => {
+  
+  const rows = React.useMemo(() => takes.map((take, index) => ({
     id: index,
     studentId: take.studentId,
     courseId: take.courseId,
@@ -27,7 +28,7 @@ export default function TakesTableView({ takes }: TakesTableViewProps) {
     year: take.year,
     deptName: take.student.deptName,
     courseName: take.section.course.title,
-  }));
+  })), [takes]);
 
   return (
     <Paper sx={{ height: 400, width: '100%' }}>
@@ -40,4 +41,6 @@ export default function TakesTableView({ takes }: TakesTableViewProps) {
       />
     </Paper>
   );
-}
+});
+
+export default TakesTableView;
