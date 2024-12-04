@@ -1,6 +1,6 @@
 import React, { Suspense, useContext, useEffect } from "react";
 
-import { Box, Container, Paper, styled, Typography } from "@mui/material";
+import { Box, Container, Fade, Paper, styled, Tab, Tabs, Typography, useMediaQuery } from "@mui/material";
 import { SectionContext } from "../context/SectionContext";
 import TakesChartView from "../components/takes/TakesChartView";
 import TakesDepartmentChartView from "../components/takes/TakesDepartmentChart";
@@ -20,24 +20,45 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 function SectionContent() {
-    const { section, whoTakes } = useContext(SectionContext)
+    const { section, whoTakes } = useContext(SectionContext);
+    const isSmallScreen = useMediaQuery('(max-width:600px)');
+    const hasSectionData = Boolean(section.courseId);
+    const [value, setValue] = React.useState(0);
+    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+        setValue(newValue);
+    };
 
     return (
-        <Box sx={{ height: '100vh' }}>
-            <Item>
-                <Suspense fallback={<div>Loading...</div>}>
-                    <Paper sx={{width: '100%', padding:1}}>
-                            Section: {section.courseId}-{section.secId}-{section.semester}-{section.year}-{section.building}-{section.roomNumber} 
-                    </Paper>
-                    <Container sx={{ display: 'flex', width: '100%', padding: 2 }}>
-                        <TakesDepartmentChartView takes={whoTakes} />
-                        <TakesChartView takes={whoTakes} />
-                    </Container>
-                    <Container sx={{ width: '100%' }}>
-                        <TakesTableView takes={whoTakes} />
-                    </Container>
-                </Suspense>
-            </Item>
+        <Box sx={{ height: '50vh', width: '100%'}}>
+            <Fade in={hasSectionData}>
+                <Box>
+                    <Typography sx={{ marginBottom: 2 }}>
+                        Section: {section.courseId}-{section.secId}-{section.semester}-{section.year}-{section.building}-{section.roomNumber}
+                    </Typography>
+                    <Suspense fallback={<div style={{ width: '100%', height: '100%' }}>Loading...</div>}>
+                        <Tabs value={value} onChange={handleChange} centered>
+                            <Tab label="Charts" />
+                            <Tab label="Who Takes This Course" />
+                        </Tabs>
+                        {value === 0 && (
+                            <Container
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: isSmallScreen ? 'column' : 'row',
+                                }}
+                            >
+                                <TakesDepartmentChartView takes={whoTakes} />
+                                <TakesChartView takes={whoTakes} />
+                            </Container>
+                        )}
+                        {value === 1 && (
+                            <Container>
+                                <TakesTableView takes={whoTakes} />
+                            </Container>
+                        )}
+                    </Suspense>
+                </Box>
+            </Fade>
         </Box>
     );
 }
