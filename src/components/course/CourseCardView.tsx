@@ -12,6 +12,7 @@ import TeachesStackView from '../teaches/TeachesStackView';
 
 interface CourseCardViewProps {
     course: CourseDTO;
+    isVisible: boolean;
 }
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -22,56 +23,71 @@ const Item = styled(Paper)(({ theme }) => ({
     textAlign: 'left',
     flexWrap: 'wrap',
     minHeight: 450,
+    minWidth: 300, // Sabit genişlik ekleyin
     color: theme.palette.text.secondary,
     flexGrow: 1,
     ...theme.applyStyles('dark', {
         backgroundColor: '#1A2027',
     }),
 }));
-export default function CourseCardView({ course }: CourseCardViewProps) {
+export default function CourseCardView({ course, isVisible }: CourseCardViewProps) {
     const [teaches, setTeaches] = useState([] as TeachesDTO[]);
     const [prereqs, setPrereqs] = useState([] as PrereqDTO[]);
-    
+    const [dataLoaded, setDataLoaded] = useState(false);
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
-        const prereqService = new PrereqService();
-        const teachesService = new TeachesService();
+        if (isVisible && !dataLoaded) {
+            setLoading(true);
+            const prereqService = new PrereqService();
+            const teachesService = new TeachesService();
 
-        teachesService.getTeachesByCourseId(course.courseId).then(data => {
-            setTeaches(data);
-        });
+            teachesService.getTeachesByCourseId(course.courseId).then(data => {
+                setTeaches(data);
+            });
 
-        prereqService.getPrereqsByCourseId(course.courseId).then(data => {
-            setPrereqs(data);
-        });
-    }, [course.courseId]);
+            prereqService.getPrereqsByCourseId(course.courseId).then(data => {
+                setPrereqs(data);
+            });
+
+            setDataLoaded(true);
+            setLoading(false);
+        }
+    }, [course.courseId, isVisible, dataLoaded]);
 
     return (
         <Suspense fallback={<div>Loading...</div>}>
             <Item>
-            <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
-                Course: {course.title}
-            </Typography>
-            <Typography variant="body2">
-                Credits: {course.credits}
-            </Typography>
-            <Typography variant="h5" component="div">
-                Course Id: {course.courseId}
-            </Typography>
-            {prereqs.length > 0 ? (
-                <PrereqStackView prereqs={prereqs} />
-            ) : (
-                <Typography margin={1}>
-                    No prerequisites available.
-                </Typography>
-            )}
-            {teaches.length > 0 ? (
-                <TeachesStackView teaches={teaches} />
-            ) : (<Typography margin={1}>
-                No teaches available.
-            </Typography>
-            )}
-        </Item>
+                {loading ? (
+                    <Typography>Loading...</Typography>
+                ) : (
+                    <>
+                        <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
+                            Course: {course.title}
+                        </Typography>
+                        <Typography variant="body2">
+                            Credits: {course.credits}
+                        </Typography>
+                        <Typography variant="h5" component="div">
+                            Course Id: {course.courseId}
+                        </Typography>
+                        {prereqs.length > 0 ? (
+                            <PrereqStackView prereqs={prereqs} />
+                        ) : (
+                            <Typography margin={1}>
+                                No prerequisites available.
+                            </Typography>
+                        )}
+                        {teaches.length > 0 ? (
+                            <TeachesStackView teaches={teaches} />
+                        ) : (
+                            <Typography margin={1}>
+                                No teaches available.
+                            </Typography>
+                        )}
+                    </>
+                )}
+            </Item>
         </Suspense>
-        
     );
 }
