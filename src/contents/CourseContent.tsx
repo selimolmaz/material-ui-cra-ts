@@ -4,9 +4,6 @@ import { DepartmentContext } from "../context/DepartmentContext";
 import { Box, Typography } from "@mui/material";
 import CourseService from "../services/CourseService";
 import CourseDTO from "../models/CourseDTO";
-import CourseStackView from "../components/course/CourseStackView";
-import DepartmentDTO from "../models/DepartmentDTO";
-
 
 import { Swiper, SwiperSlide, } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
@@ -19,6 +16,7 @@ import CourseCardView from "../components/course/CourseCardView";
 const CourseContent: React.FC = () => {
     const { selectedDepartment } = useContext(DepartmentContext);
     const [courses, setCourses] = useState([] as CourseDTO[]);
+    const [visibleSlides, setVisibleSlides] = useState<number[]>([]);
 
     useEffect(() => {
         const courseService = new CourseService();
@@ -26,6 +24,14 @@ const CourseContent: React.FC = () => {
             setCourses(data);
         });
     }, [selectedDepartment.deptName]);
+
+    const handleSlideChange = (swiper: any) => {
+        const visibleSlides = [];
+        for (let i = swiper.activeIndex; i < swiper.activeIndex + swiper.params.slidesPerView; i++) {
+            visibleSlides.push(i);
+        }
+        setVisibleSlides(visibleSlides);
+    };
 
     return (
         <Suspense fallback={<div>Loading...</div>}>
@@ -53,10 +59,16 @@ const CourseContent: React.FC = () => {
                     },
                 }}
                 modules={[Pagination]}
+                onSlideChange={handleSlideChange}
+                onSwiper={handleSlideChange}
             >
                 {courses.map((course, index) => (
                     <SwiperSlide key={`course-swiper-index-${index}`}>
-                        <CourseCardView key={`course-card-view-${course.courseId}`} course={course} />
+                        <CourseCardView 
+                            key={`course-card-view-${course.courseId}`} 
+                            course={course} 
+                            isVisible={visibleSlides.includes(index)} 
+                        />
                     </SwiperSlide>))}
             </Swiper>
         </Suspense>
