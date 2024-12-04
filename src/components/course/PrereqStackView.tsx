@@ -10,7 +10,7 @@ interface PrereqStackViewProps {
 
 export default function PrereqStackView({ prereqs }: PrereqStackViewProps) {
     return (
-        <Box sx={{ width: '100%'}}>
+        <Box sx={{ width: '100%', minHeight: 200 }}>
             <Typography variant="h5" component="h1" sx={{ mb: 2 }}>
                 Prereqs:
             </Typography>

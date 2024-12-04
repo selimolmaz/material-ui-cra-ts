@@ -12,7 +12,7 @@ interface TeachesStackViewProps {
 
 export default function TeachesStackView({ teaches }: TeachesStackViewProps) {
     return (
-        <Box sx={{ width: '100%'}}>
+        <Box sx={{ width: '100%', minHeight: 200 }}> {/* Sabit yükseklik ekleyin */}
             <Stack
                 spacing={{ xs: 1, sm: 2 }}
                 direction="row"
